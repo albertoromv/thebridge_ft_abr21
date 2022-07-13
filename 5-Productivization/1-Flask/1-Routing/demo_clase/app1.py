@@ -54,6 +54,20 @@ def get_by_title(title):
             return jsonify(book)
     return jsonify({'message': "Book not found"})
 
+@app.route("/api/v2/resources/book", methods = ["GET"])
+def get_by_id():
+    id = int(request.get_json()['id'])
+    for book in books:
+        if book['id'] == id:
+            return jsonify(book)
+    return jsonify({'message': "Book not found"})
+
+@app.route("/api/v1/resources/book", methods = ["POST"])
+def post_book():
+    data = request.get_json()
+    books.append(data)
+    return data
+
 
 app.run()
 
